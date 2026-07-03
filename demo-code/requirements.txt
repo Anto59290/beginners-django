@@ -1,3 +1,6 @@
 django
 django-crispy-forms
 ddtrace
+opentelemetry-distro
+opentelemetry-instrumentation-django
+opentelemetry-exporter-otlp-proto-http
