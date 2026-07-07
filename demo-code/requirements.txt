@@ -1,6 +1,7 @@
 django
 django-crispy-forms
 ddtrace
+python-json-logger
 pytest
 opentelemetry-distro
 opentelemetry-instrumentation-django

@@ -122,3 +122,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Logging
+# Sends app logs as JSON to stdout so the Datadog Agent (DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL)
+# can pick them up from the container's docker logs and parse them without a custom pipeline.
+# The dd.* fields are injected by ddtrace-run (DD_LOGS_INJECTION=true) for trace/log correlation.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'json': {
+            '()': 'pythonjsonlogger.jsonlogger.JsonFormatter',
+            'format': (
+                '%(asctime)s %(levelname)s %(name)s %(message)s '
+                '%(dd.trace_id)s %(dd.span_id)s %(dd.service)s %(dd.env)s %(dd.version)s'
+            ),
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'json',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
