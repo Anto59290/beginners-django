@@ -3,9 +3,14 @@ from django.urls import reverse_lazy
 from . import models
 from django.views import generic
 from django.contrib.messages.views import SuccessMessageMixin
+import logging
+import random
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 def index(request):
+    logger.info(f"Nous sommes ici {random.randint(1,100)}", extra={"team": "customer", "user_id": 546})
+    logger.info(f"One more log", extra={"team": "fidelité", "user_id": 546})
     return render(request, 'index.html')
 
 def about(request):
